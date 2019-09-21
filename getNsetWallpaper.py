@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import re
 import urllib.request
 import contextlib
@@ -32,7 +33,7 @@ def getImage(image_url):
 	url_parse = img_url.split('/')
 	image_file_name = url_parse[len(url_parse) - 1]
 	# print(image_file_name)
-
+	image_file_name = image_file_name.split(".")[1]+".jpg"
 	system_user = getpass.getuser()
 	file_location = "/home/" + str(system_user) + "/Pictures/BingDaily/"
 
