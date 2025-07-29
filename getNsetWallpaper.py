@@ -4,11 +4,11 @@ import urllib.request
 import contextlib
 import os
 import getpass
+import sys
 
-
-def getURL():
+def getURL(idx):
 	xml_data = ""
-	url = "http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US"
+	url = "http://www.bing.com/HPImageArchive.aspx?format=xml&""idx="+str(idx)+"&n=1&mkt=en-US"
 	###change idx to 1,2,3,4... to next wallpapers
 
 	bing_url = "http://www.bing.com/"
@@ -35,7 +35,7 @@ def getImage(image_url):
 	# print(image_file_name)
 	image_file_name = image_file_name.split(".")[1]+".jpg"
 	system_user = getpass.getuser()
-	file_location = "/home/" + str(system_user) + "/Pictures/BingDaily/"
+	file_location = "/home/" + str(system_user) + "/Pictures/Wallpapers/"
 
 	image_file_name = file_location + image_file_name
 
@@ -67,7 +67,7 @@ def setWallapper(file_name):
 	elif (desktop_environment == "gnome3"):
 		desktop_environment = "gnome"
 
-	command = "gsettings set org." + desktop_environment + ".desktop.background picture-uri "
+	command = "gsettings set org." + desktop_environment + ".desktop.background picture-uri-dark "
 	file_name = file_name
 	final_command = command + "file://" + file_name
 	print(final_command)
@@ -76,6 +76,9 @@ def setWallapper(file_name):
 
 
 if __name__ == "__main__":
-	img_url = getURL()
+	image_index=0
+	if(sys.argv[1]):
+		image_index=sys.argv[1]
+	img_url = getURL(image_index)
 	image_file_name = getImage(img_url)
 	setWallapper(image_file_name)
